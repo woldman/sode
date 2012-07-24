@@ -8,7 +8,7 @@ from libc cimport math
 
 import numpy as np
 cimport numpy as np
-from numpy.random import random
+from numpy.random import standard_normal
 
 from sode import pysode
 
@@ -67,7 +67,7 @@ cdef class CYSODE:
         self._drift(a, x1, t1)
         self._diffusion(b, x1, t1)
         for i in range(self.nvars):
-            x2[i] = x1[i] + a[i] * dt + b[i] * sqrtdt * random()
+            x2[i] = x1[i] + a[i] * dt + b[i] * sqrtdt * standard_normal()
 
     cpdef solveto(self, np.ndarray[DTYPE_t, ndim=1] x1, double t1,
                         np.ndarray[DTYPE_t, ndim=1] x2, double t2, double dtmax):
